@@ -25,7 +25,7 @@ export default function WelcomeBox({ onAddEntry, isDarkMode }) {
       <div className="relative flex items-center justify-center w-full max-w-2xl">
         <div className="absolute -left-10 md:-left-12 bottom-0 z-10">
           <img
-            src="./src/img/happy_happy.png"
+            src="src/img/happy_happy.png"
             alt="Happy Monster"
             className="w-36 h-36 md:w-48 md:h-48"
           />
