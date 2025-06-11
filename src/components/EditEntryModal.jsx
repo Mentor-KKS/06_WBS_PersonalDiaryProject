@@ -1,3 +1,3 @@
 export default function EditEntryModal() {
-  return null;
+  return <div></div>;
 }

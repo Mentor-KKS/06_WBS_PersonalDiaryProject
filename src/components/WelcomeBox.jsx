@@ -2,19 +2,13 @@ export default function WelcomeBox({ onAddEntry, isDarkMode }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center pt-20">
       <h1
-        className={`text-4xl md:text-5xl font-bold mb-4 ${
-          isDarkMode ? "text-white" : "text-[#53586c]"
-        }`}
+        className="text-4xl md:text-5xl font-bold mb-4"
         style={{ fontFamily: "'Irish Grover', cursive" }}
       >
         Welcome to Your Diary
       </h1>
 
-      <p
-        className={`text-lg mb-8 max-w-md ${
-          isDarkMode ? "text-gray-300" : "text-[#53586c]"
-        }`}
-      >
+      <p className="text-lg mb-8 max-w-md text-base-content">
         Start your first reflection today.
         <br />
         Every thought, every moment, every feeling
@@ -50,9 +44,9 @@ export default function WelcomeBox({ onAddEntry, isDarkMode }) {
           </ul>
           <button
             onClick={onAddEntry}
-            className="bg-[#00d085] hover:bg-[#00b872] text-white px-6 py-3 rounded-full font-semibold transition-colors duration-200 w-3/4"
+            className="btn btn-outline btn-soft btn-circle btn-success w-3/4"
           >
-            + Write Your first Entry
+            + Write Your First Entry
           </button>
         </div>
       </div>

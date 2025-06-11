@@ -7,23 +7,22 @@ import EntryList from "./components/EntryList";
 import WelcomeBox from "./components/WelcomeBox";
 
 function App() {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState(() => {
+    try {
+      const stored = localStorage.getItem("diary-entries");
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem("diary-theme") === "dark";
+  });
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [viewEntry, setViewEntry] = useState(null);
   const [editEntry, setEditEntry] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedEntries = localStorage.getItem("diary-entries");
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
-    }
-
-    const savedTheme = localStorage.getItem("diary-theme");
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("diary-entries", JSON.stringify(entries));
@@ -34,11 +33,9 @@ function App() {
   }, [isDarkMode]);
 
   const addEntry = (entryData) => {
-    const existingEntry = entries.find(
-      (entry) => entry.date === entryData.date
-    );
-    if (existingEntry) {
-      alert("An entry for this date already exists!");
+    const exists = entries.some((entry) => entry.date === entryData.date);
+    if (exists) {
+      alert("Oops! You've already written something for this date.");
       return false;
     }
 
@@ -48,54 +45,41 @@ function App() {
       createdAt: Date.now(),
     };
 
-    setEntries((prev) =>
-      [newEntry, ...prev].sort((a, b) => b.createdAt - a.createdAt)
-    );
+    setEntries((prev) => [newEntry, ...prev]);
     return true;
   };
 
-  const updateEntry = (updatedEntry) => {
-    const existingEntry = entries.find(
-      (entry) =>
-        entry.date === updatedEntry.date && entry.id !== updatedEntry.id
+  const updateEntry = (updated) => {
+    const conflict = entries.find(
+      (entry) => entry.date === updated.date && entry.id !== updated.id
     );
-    if (existingEntry) {
-      alert("An entry for this date already exists!");
+    if (conflict) {
+      alert("Oops! You've already written something for this date.");
       return false;
     }
 
-    setEntries((prev) =>
-      prev
-        .map((entry) => (entry.id === updatedEntry.id ? updatedEntry : entry))
-        .sort((a, b) => b.createdAt - a.createdAt)
-    );
+    setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
     return true;
   };
 
-  const deleteEntry = (entryId) => {
+  const deleteEntry = (id) => {
     if (
-      window.confirm(
-        "Are you sure you want to delete this entry? This action cannot be undone."
+      confirm(
+        "Do you really want to delete this entry forever? Once deleted, this entry can’t be recovered."
       )
     ) {
-      setEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+      setEntries((prev) => prev.filter((e) => e.id !== id));
     }
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-  };
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 ${
-        isDarkMode ? "bg-[#333745] text-white" : "bg-gray-100 text-[#333745]"
-      }`}
-    >
+    <div data-theme={isDarkMode ? "dark" : "light"} className="min-h-screen">
       <Header
         onAddEntry={() => setIsAddModalOpen(true)}
-        isDarkMode={isDarkMode}
         onToggleTheme={toggleTheme}
+        isDarkMode={isDarkMode}
       />
 
       <main className="container mx-auto px-4 py-8">
@@ -119,7 +103,7 @@ function App() {
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onAddEntry={addEntry}
-        existingDates={entries.map((entry) => entry.date)}
+        existingDates={entries.map((e) => e.date)}
         isDarkMode={isDarkMode}
       />
 
@@ -128,8 +112,7 @@ function App() {
         entry={editEntry}
         onClose={() => setEditEntry(null)}
         onUpdateEntry={updateEntry}
-        existingDates={entries.map((entry) => entry.date)}
-        isDarkMode={isDarkMode}
+        existingDates={entries.map((e) => e.date)}
       />
 
       <ViewEntryModal
@@ -137,7 +120,6 @@ function App() {
         onClose={() => setViewEntry(null)}
         onEdit={setEditEntry}
         onDelete={deleteEntry}
-        isDarkMode={isDarkMode}
       />
     </div>
   );

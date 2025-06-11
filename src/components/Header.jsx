@@ -2,58 +2,43 @@ import { Moon, Sun } from "lucide-react";
 
 export default function Header({ onAddEntry, isDarkMode, onToggleTheme }) {
   return (
-    <header
-      className={`transition-colors duration-300 ${
-        isDarkMode ? "bg-[#333745]" : "bg-gray-100"
-      }`}
-    >
+    <header className="transition-colors">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex flex-col">
           <h1
-            className={`text-4xl md:text-4xl font-bold ${
-              isDarkMode ? "text-white" : "text-[#333745]"
-            }`}
+            className="text-4xl md:text-4xl font-bold "
             style={{
               fontFamily: "Irish Grover, Apple Chancery, cursive",
             }}
           >
             Monstary
           </h1>
-          <p
-            className={`text-sm ${
-              isDarkMode ? "text-gray-300" : "text-[#333745]"
-            }`}
-          >
-            Your personal space
-          </p>
+          <p className="text-sm text-base-content">Your personal space</p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={onToggleTheme}
-            className="p-2 rounded-full bg-gray-600 hover:bg-gray-500 text-white transition-colors duration-200"
+            className="btn btn-circle bg-neutral-700  text-white hover:bg-neutral-focus"
             aria-label="Toggle theme"
           >
             {isDarkMode ? (
-              <Sun className="w-5 h-5" />
+              <Sun className="w-4 h-4" />
             ) : (
-              <Moon className="w-5 h-5" />
+              <Moon className="w-4 h-4" />
             )}
           </button>
 
           <button
             onClick={onAddEntry}
-            className="bg-[#00d085] hover:bg-[#00b872] text-white px-5 py-2 rounded-full font-semibold transition-colors duration-200 text-sm md:text-base"
+            className="btn btn-success text-white px-5 py-2 rounded-full font-semibold text-sm md:text-base"
           >
             + Add Entry
           </button>
         </div>
       </div>
-      <div
-        className={`h-[3px] w-8/9 transition-colors text-center m-auto duration-300 ${
-          isDarkMode ? "bg-white" : "bg-[#333745]"
-        }`}
-      />
+
+      <div className="h-[3px] w-11/12 bg-base-content mx-auto mt-1 rounded-full opacity-70" />
     </header>
   );
 }
