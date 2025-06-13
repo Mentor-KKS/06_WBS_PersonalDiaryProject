@@ -38,7 +38,7 @@ export default function WelcomeBox({ onAddEntry, isDarkMode }) {
           </h2>
           <ul className="text-left space-y-2 mb-10 text-sm">
             <li>• Capture your daily thoughts and experiences</li>
-            <li>• Add photos to make memories vivid</li>
+            <li>• Add photos to make memories</li>
             <li>• Track your mood and emotional journey</li>
             <li>• Everything stays private on your device</li>
           </ul>
