@@ -19,10 +19,10 @@ export default function EntryCard({
 
   return (
     <div
-      className={`cursor-pointer rounded-box overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.01] ${
+      className={`cursor-pointer rounded-box overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-[1.01] ${
         isDarkMode
           ? "bg-[#53586c] hover:bg-gray-600"
-          : "bg-white hover:bg-gray-100"
+          : "bg-base-200 hover:bg-gray-100"
       }`}
     >
       <div className="aspect-video overflow-hidden" onClick={onClick}>
@@ -68,18 +68,18 @@ export default function EntryCard({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onEdit();
+              onEdit(entry);
             }}
-            className="btn btn-sm btn-outline btn-primary"
+            className="btn btn-sm btn-outline btn-success btn-circle"
           >
             <Pencil className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onDelete();
+              onDelete(entry.id);
             }}
-            className="btn btn-sm btn-outline btn-error"
+            className="btn btn-sm btn-outline btn-error btn-circle"
           >
             <Trash2 className="w-4 h-4" />
           </button>

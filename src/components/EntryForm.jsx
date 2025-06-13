@@ -116,8 +116,8 @@ function EntryForm({ onSubmit, existingDates, initialData }) {
         )}
       </div>
 
-      <div className="pt-4">
-        <button type="submit" className="btn btn-success w-full">
+      <div className="pt-4 mx-auto">
+        <button type="submit" className="btn btn-success btn-circle w-1/2">
           {initialData ? "Update Entry" : "Save Entry"}
         </button>
       </div>

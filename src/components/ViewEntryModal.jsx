@@ -49,7 +49,7 @@ export default function ViewEntryModal({
           <div className="flex items-center gap-2">
             <button
               onClick={handleEdit}
-              className="btn btn-sm btn-primary"
+              className="btn btn-sm btn-outline btn-success btn-circle"
               title="Edit entry"
             >
               <Edit className="w-4 h-4" />
@@ -57,7 +57,7 @@ export default function ViewEntryModal({
 
             <button
               onClick={handleDelete}
-              className="btn btn-sm btn-error"
+              className="btn btn-sm btn-outline btn-error btn-circle"
               title="Delete entry"
             >
               <Trash2 className="w-4 h-4" />
@@ -65,7 +65,7 @@ export default function ViewEntryModal({
 
             <button
               onClick={onClose}
-              className={`btn btn-sm ${
+              className={`btn btn-sm btn-circle ${
                 isDarkMode ? "btn-neutral" : "btn-outline"
               }`}
             >
